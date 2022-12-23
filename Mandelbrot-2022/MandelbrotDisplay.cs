@@ -38,7 +38,7 @@ namespace Mandelbrot_2022
       CheckAndInvoke(() =>
       {
         toolStripProgressBar1.Visible = true;
-        this.Text = $"Mandelbrot: ({parameters.XMin:F3},{parameters.YMin:F3}) - ({parameters.XMax:F3},{parameters.YMax:F3}) : ({parameters.WidthPixels} x {parameters.HeightPixels}) : {parameters.ColorMode}";
+        this.Text = $"Mandelbrot: ({parameters.XMin:F3},{-parameters.YMin:F3}) - ({parameters.XMax:F3},{-parameters.YMax:F3}) : ({parameters.WidthPixels} x {parameters.HeightPixels}) : {parameters.ColorMode}";
       });
       this.mandelbrotValues = mandelbrotValues;
       // Iterate over each pixel
@@ -154,8 +154,8 @@ namespace Mandelbrot_2022
     private void DrawDragCoordinates(Graphics g, Pen linePen, Brush textBrush, Brush backBrush)
     {
       Parameters p = GetNewParameters(dragRectangle);
-      string topLeft = $"({p.XMin:F3}, {p.YMin:F3})";
-      string bottomRight = $"({p.XMax:F3}, {p.YMax:F3})";
+      string topLeft = $"({p.XMin:F3}, {-p.YMin:F3})";
+      string bottomRight = $"({p.XMax:F3}, {-p.YMax:F3})";
       Size topLeftStringSize = g.MeasureString(topLeft, font, 0, StringFormat.GenericTypographic).ToSize();
       Size bottomRightStringSize = g.MeasureString(bottomRight, font, 0, StringFormat.GenericTypographic).ToSize();
       Point topLeftPos = dragRectangle.Location;
@@ -182,7 +182,7 @@ namespace Mandelbrot_2022
     private void DrawMouseCoordinates(Graphics g, Pen linePen, Brush textBrush, Brush backBrush)
     {
       (double x, double y) = parameters.PixelPointToMandelbrotPoint(mouseLocation);
-      string str = $"({x:F4}, {y:F4})";
+      string str = $"({x:F4}, {-y:F4})";
       Size stringSize = g.MeasureString(str, font, 0, StringFormat.GenericTypographic).ToSize();
       Point where = mouseLocation - stringSize;
       where.X = Math.Clamp(where.X, 0, picturebox.Width);
